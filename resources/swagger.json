@@ -75,21 +75,8 @@
         }
       }
     },
+    
     "/users": {
-      "post": {
-        "summary": "Cria usuário (admin apenas)",
-        "security": [{ "bearerAuth": [] }],
-        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } } },
-        "responses": {
-          "201": {
-            "description": "Criado",
-            "content": { "application/json": { "schema": { "type": "object", "properties": { "username": { "type": "string" }, "role": { "type": "string" } } } } }
-          },
-          "400": { "description": "Requisição inválida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "401": { "description": "Não autenticado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "403": { "description": "Proibido - papel insuficiente", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
-        }
-      },
       "get": {
         "summary": "Lista usuários (admin apenas)",
         "security": [{ "bearerAuth": [] }],
@@ -98,6 +85,32 @@
             "description": "Lista de usuários",
             "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object", "properties": { "username": { "type": "string" }, "role": { "type": "string" } } } } } }
           },
+          "401": { "description": "Não autenticado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "403": { "description": "Proibido - papel insuficiente", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/users/admin": {
+      "post": {
+        "summary": "Cria administrador (admin apenas)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "username": { "type": "string" }, "password": { "type": "string" } }, "required": ["username","password"] } } } },
+        "responses": {
+          "201": { "description": "Criado", "content": { "application/json": { "schema": { "type": "object", "properties": { "username": { "type": "string" }, "role": { "type": "string" } } } } } },
+          "400": { "description": "Requisição inválida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "401": { "description": "Não autenticado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "403": { "description": "Proibido - papel insuficiente", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/users/seller": {
+      "post": {
+        "summary": "Cria vendedor (admin apenas)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "username": { "type": "string" }, "password": { "type": "string" } }, "required": ["username","password"] } } } },
+        "responses": {
+          "201": { "description": "Criado", "content": { "application/json": { "schema": { "type": "object", "properties": { "username": { "type": "string" }, "role": { "type": "string" } } } } } },
+          "400": { "description": "Requisição inválida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
           "401": { "description": "Não autenticado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
           "403": { "description": "Proibido - papel insuficiente", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
         }

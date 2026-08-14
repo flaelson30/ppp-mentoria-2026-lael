@@ -10,3 +10,5 @@ exports.login = (req, res) => {
   const token = jwt.sign({ username: user.username, role: user.role }, SECRET, { expiresIn: '1h' });
   res.json({ token });
 };
+
+// Removed public register: user creation must be done by admin via /users/admin or /users/seller

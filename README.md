@@ -36,7 +36,11 @@ O servidor padrão roda em `http://localhost:3000`.
 
 Endpoints principais
 - `POST /auth/login` - faz login e retorna `token` JWT. Exemplo de body: `{ "username": "admin", "password": "adminpass" }`.
-- `POST /users` - cria um usuário (`admin` ou `seller`) — apenas administradores podem criar novos usuários. Body exemplo: `{ "username": "novo", "password": "senha", "role": "seller" }`.
+- Removido: `POST /auth/register` público. A criação de usuários agora é feita apenas por administradores via:
+	- `POST /users/admin` - cria administrador (admin apenas)
+	- `POST /users/seller` - cria vendedor (admin apenas)
+- `POST /users/admin` - cria um administrador (admin apenas). Body exemplo: `{ "username": "novoAdmin", "password": "senha" }`.
+- `POST /users/seller` - cria um vendedor (admin apenas). Body exemplo: `{ "username": "novoVendedor", "password": "senha" }`.
 - `GET /users` - lista usuários (apenas administradores).
 - `GET /devices` - lista dispositivos (requer token no header `Authorization: Bearer <token>`).
 - `GET /devices/{id}` - obtém dispositivo por id (requer token).

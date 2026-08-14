@@ -5,9 +5,18 @@ exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'No token provided' });
   const parts = authHeader.split(' ');
-  if (parts.length !== 2) return res.status(401).json({ error: 'Token error' });
-  const [scheme, token] = parts;
-  if (!/^Bearer$/i.test(scheme)) return res.status(401).json({ error: 'Token malformatted' });
+  let token = null;
+  if (parts.length === 2) {
+    const [scheme, t] = parts;
+    if (!/^Bearer$/i.test(scheme)) return res.status(401).json({ error: 'Token malformatted' });
+    token = t;
+  } else if (parts.length === 1) {
+    // allow raw token without Bearer prefix
+    token = parts[0];
+  } else {
+    return res.status(401).json({ error: 'Token error' });
+  }
+
   jwt.verify(token, SECRET, (err, decoded) => {
     if (err) return res.status(401).json({ error: 'Token invalid' });
     req.user = decoded;

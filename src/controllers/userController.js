@@ -1,12 +1,20 @@
 const userService = require('../services/userService');
 
-exports.create = (req, res) => {
-  const { username, password, role } = req.body;
-  if (!username || !password || !role) return res.status(400).json({ error: 'username, password and role required' });
-  if (!['admin', 'seller'].includes(role)) return res.status(400).json({ error: 'role must be admin or seller' });
+exports.createAdmin = (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).json({ error: 'username and password required' });
   const existing = userService.findByUsername(username);
   if (existing) return res.status(409).json({ error: 'username already exists' });
-  const user = userService.create({ username, password, role });
+  const user = userService.create({ username, password, role: 'admin' });
+  res.status(201).json({ username: user.username, role: user.role });
+};
+
+exports.createSeller = (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).json({ error: 'username and password required' });
+  const existing = userService.findByUsername(username);
+  if (existing) return res.status(409).json({ error: 'username already exists' });
+  const user = userService.create({ username, password, role: 'seller' });
   res.status(201).json({ username: user.username, role: user.role });
 };
 
