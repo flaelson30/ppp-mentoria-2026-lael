@@ -1,6 +1,9 @@
 # API REST - Gerenciamento de Dispositivos Móveis
 
-Projeto exemplo para a mentoria: uma API REST em Node.js/Express para cadastrar e gerenciar dispositivos celulares.
+Projeto para a mentoria: uma API REST em Node.js/Express para cadastrar e gerenciar dispositivos celulares.
+O objetivo do projeto é desenvolver uma API REST em Node.js/Express para fins didáticos, que permita cadastrar e gerenciar dispositivos celulares.
+
+Ele foi pensado como exercício de mentoria para praticar conceitos fundamentais de autenticação com JWT, controle de acesso por papéis (admin e seller) e operações CRUD sobre uma entidade (dispositivos), utilizando armazenamento em memória e documentação via Swagger UI.
 
 Visão geral
 - Autenticação via JWT.
